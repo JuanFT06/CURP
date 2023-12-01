@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Lista de usuarios</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"><!--  -->
+        <!--     <link th:href="@{/styles.css}" rel="stylesheet" />-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    </head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <div class="container mt-4" layout:fragment="body" style="min-height: 500px">
+            <div class="row jutify-content-center mb-4">
+
+
+
+                <div class="text-center">
+                    <button  class="btn btn-success" onclick="showModal()"><i class="bi bi-person-workspace"></i>+ Agregar</button>
+                </div>
+
+                <div class="row col-12 mt-5">
+                    <table  class="table table-striped mr-8">
+                        <thead>
+                            <tr>
+
+                                <th>Nombre</th>
+                                <th>Fecha nacimiento</th>
+                                <th>Estado</th>
+                                <th>Sexo</th>
+                                <th>Curp</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="contenido">
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+<div id="modalAdd" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModal">Agregar Empleado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Nombre</label>
+                    <label  id="lblNombre"></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-person-circle"></i></div>
+                        </div>
+                        <input type="text" placeholder="Nombre"   
+                               id="txtNombre"
+                               class="form-control mb-4 col-4">                       
+                    </div>
+
+                </div>
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Apellido Paterno</label>
+                    <label id="lblApellidoPaterno"></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-person-circle"></i></div>
+                        </div>
+                        <input type="text"  placeholder="Apellido paterno" id="txtApellidoPaterno"
+                               class="form-control mb-4 col-4" > 
+                    </div>
+                </div>
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Apellido Materno</label>
+                    <label id="lblApellidoMaterno"></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-person-circle"></i></div>
+                        </div>
+                        <input type="text"  placeholder="Apellido materno" id="txtApellidoMaterno"
+                               class="form-control mb-4 col-4" > 
+                    </div>
+                </div>
+
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Fecha de nacimineto</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-calendar"></i></div>
+                        </div>
+                        <input type="date" id="txtFechaNacimiento" 
+                               class="form-control mb-4 col-4"> 
+                    </div>
+                </div>
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Sexo</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-gender-ambiguous"></i></div>
+                        </div>
+                        <input type="text"  placeholder="Sexo H/M" id="txtSexo"
+                               class="form-control mb-4 col-4" > 
+                        <!--                        <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"  value="H" id="sexoM" name="sexo" >
+                                                    <label class="form-check-label" for="sexoH">H</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" value="F" id="sexoM" name="sexo">
+                                                    <label class="form-check-label" for="sexoM">M</label>
+                                                </div>-->
+                    </div>
+                </div>
+
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Estado</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-building"></i></div>
+                        </div>
+                        <select id="ddlEstado" required  class="form-control mb-4">
+                            <option value="0">Selleciona un estado</option>                           
+                        </select>
+                    </div>
+                </div>
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Municipio</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-building"></i></div>
+                        </div>
+                        <select id="ddlMunicipio" required  class="form-control mb-4">
+                            <option value="0">Selleciona un municipio</option>                           
+                        </select>
+                    </div>
+                </div>
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Colonia</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-building"></i></div>
+                        </div>
+                        <select id="ddlColonia" required  class="form-control mb-4">
+                            <option value="0">Selleciona una colonia</option>                           
+                        </select>
+                    </div>
+                </div>
+
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Calle</label>
+                    <label id="lblApellidoMaterno"></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-person-circle"></i></div>
+                        </div>
+                        <input type="text"  placeholder="Calle" id="txtCalle"
+                               class="form-control mb-4 col-4" > 
+                    </div>
+                    <input type="text" hidden="true" placeholder="Calle" id="txtIdDireccion"
+                           class="form-control mb-4 col-4" > 
+                </div>
+                <div class="offset-3 col-6">
+                    <label class="mb-2">Numero</label>
+                    <label id="lblApellidoMaterno"></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="bi bi-person-circle"></i></div>
+                        </div>
+                        <input type="text"  placeholder="Numero" id="txtNumero"
+                               class="form-control mb-4 col-4" > 
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="botonModal" onclick="addUser()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" id="modalDelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Seguro que quieres eliminar este usuario?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteUser()">delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var update = false;
+    var idempleado = 0;
+    $(document).ready(function () {
+        getAll();
+        getEstados();
+        $("#ddlEstado").change(function () {
+            getMunicipios($("#ddlEstado").val());
+        });
+        $("#ddlMunicipio").change(function () {
+            getColonias($("#ddlMunicipio").val());
+        });
+    });
+
+    function getMunicipios(id) {
+        $.ajax({
+            type: "GET",
+            url: "/api/municipios", // La URL del controlador
+            dataType: "json",
+            data: {idestado: id},
+            success: function (municipios) {
+                $("#ddlMunicipio").empty();
+                $("#ddlMunicipio").append('<option value="0">' + 'Seleccione un municipio' + '</option>');
+                $.each(municipios, function (i, municipio) {
+                    $("#ddlMunicipio").append('<option value="'
+                            + municipio.id + '">'
+                            + municipio.nombre + '</option>');
+                });
+            },
+            error: function () {
+                alert("Error al obtener los datos.");
+            }
+        });
+    }
+    function getColonias(id) {
+        $.ajax({
+            type: "GET",
+            url: "/api/colonias", // La URL del controlador
+            dataType: "json",
+            data: {idmunicipio: id},
+            success: function (colonias) {
+                $("#ddlColonia").empty();
+                $("#ddlColonia").append('<option value="0">' + 'Seleccione una colonia' + '</option>');
+                $.each(colonias, function (i, colonia) {
+                    $("#ddlColonia").append('<option value="'
+                            + colonia.id + '" >'
+                            + colonia.nombre + '</option>');
+                });
+            },
+            error: function () {
+                alert("Error al obtener los datos.");
+            }
+        });
+    }
+    function getEstados() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/estados", // La URL del controlador
+            dataType: "json",
+            data: {idpais: $("#ddlPais").val()},
+            success: function (estados) {
+                $("#ddlEstado").empty();
+                $("#ddlEstado").append('<option value="0">' + 'Seleccione un estado' + '</option>');
+                $.each(estados, function (i, estado) {
+                    $("#ddlEstado").append('<option value="'
+                            + estado.id + '">'
+                            + estado.nombre + '</option>');
+                });
+            },
+            error: function () {
+                alert("Error al obtener los datos.");
+            }
+        });
+    }
+    function getAll() {
+
+        $.ajax({
+            url: "http://localhost:8080/api/personas",
+            dataType: "json",
+            success: function (data) {
+
+                var resultsContainer = $("#contenido");
+                resultsContainer.empty();
+                var personas = data;
+                $.each(personas, function (index, persona) {
+                    var card = `
+                        <tr>
+                                
+                                
+                                <td >${persona.nombre} ${persona.apellidoPaterno} ${persona.apellidoMaterno}</td>
+                                <td >${persona.fechaNacimiento}</td>
+                                 <td >${persona.direccion.calle}</td>
+                                  <td >${persona.sexo}</td>
+                                  <td >${persona.curp}</td>
+                                
+                                
+                                
+                              <td>
+                                <button onclick="showModalUpdate(${persona.id})" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                            </td>
+                            <td>
+
+                              
+
+                                    <button onclick="showDelete(${persona.id})" class="btn btn-danger btn-sm"> <i class="bi bi-trash3-fill"></i></button>
+                                
+                            </td>
+                        </tr>
+                    `;
+
+                    resultsContainer.append(card);
+                });
+                $("#errorContainer").hide();
+
+            }
+        });
+    }
+
+    function showModal() {
+        update = false;
+        $("#txtNombre").val('')
+        $("#txtApellidoPaterno").val('')
+        $("#txtApellidoMaterno").val('')
+        $("#ddlEstado").val('');
+        $("#ddlMunicipio").val('');
+        $("#ddlColonia").val('');
+        $("#txtSexo").val('');
+        $("#txtCalle").val('');
+        $("#txtNumero").val('');
+        $("#modalAdd").modal("show");
+        $("#tituloModal").text("Registrar empleado");
+        $("#botonModal").text("Guardar");
+    }
+
+    function showModalUpdate(id) {
+        $("#tituloModal").text("Actualizar empleado")
+        $("#botonModal").text("Actualizar")
+        idempleado = id;
+        update = true;
+        $.ajax({
+            url: "http://localhost:8080/api/personas/" + id,
+            type: "get",
+            accept: "application/json",
+            dataType: "json",
+            success: function (data) {
+                $("#txtNombre").val(data.nombre)
+                $("#txtApellidoPaterno").val(data.apellidoPaterno);
+                $("#txtApellidoMaterno").val(data.apellidoMaterno);
+                $("#txtFechaNacimiento").val(data.fechaNacimiento);
+                $("#ddlEstado").val(data.direccion.colonia.municipio.estado.id);
+                getMunicipios(data.direccion.colonia.municipio.estado.id);
+                $("#ddlMunicipio").val(data.direccion.colonia.municipio.id);
+                getColonias(data.direccion.colonia.municipio.id);
+                $("#txtSexo").val(data.sexo);
+                $("#txtCalle").val(data.direccion.calle);
+                $("#txtNumero").val(data.direccion.numero);
+                $("#txtIdDireccion").val(data.direccion.id);
+            },
+            error: function () {
+                alert("Error al obtener los datos.");
+            }
+        });
+
+        $("#modalAdd").modal("show");
+    }
+
+    function addUser() {
+        event.preventDefault();
+        var empleado = {
+            "nombre": $("#txtNombre").val(),
+            "apellidoPaterno": $("#txtApellidoPaterno").val(),
+            "apellidoMaterno": $("#txtApellidoMaterno").val(),
+            "fechaNacimiento": $("#txtFechaNacimiento").val(),
+            "sexo": $("#txtSexo").val(),
+            "direccion": {
+                "id": $("#txtIdDireccion").val(),
+                "calle": $("#txtCalle").val(),
+                "numero": $("#txtNumero").val(),
+                "colonia": {
+                    "id": $("#ddlColonia").val()
+                }
+            }
+        }
+        if (update) {
+            $.ajax({
+                url: "http://localhost:8080/api/personas/" + idempleado,
+                type: 'put',
+                data: JSON.stringify(empleado),
+                Accept: "application/json",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    alert("Empleado actualizado");
+                    $("#modalAdd").modal("hide");
+                    getAll();
+                },
+                error: function () {
+                    // Muestra el mensaje de error en caso de error en la petición
+                    alert("Error al actualizar");
+                    $("#modalAdd").modal("hide");
+                }
+            });
+
+        } else {
+            $.ajax({
+                url: "http://localhost:8080/api/personas",
+                type: 'post',
+                data: JSON.stringify(empleado),
+                Accept: "application/json",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    alert("Empleado registrado");
+                    $("#modalAdd").modal("hide");
+                    getAll();
+                },
+                error: function () {
+                    // Muestra el mensaje de error en caso de error en la petición
+                    alert("Error al registrar");
+                    $("#modalAdd").modal("hide");
+                }
+            });
+        }
+
+    }
+
+    function showDelete(id) {
+        idempleado = id;
+        $("#modalDelete").modal("show");
+    }
+
+    function deleteUser() {
+
+        $.ajax({
+            url: "http://localhost:8080/api/personas/" + idempleado,
+            type: 'delete',
+            success: function (data) {
+                alert("Usuario Eliminado");
+                $("#modalAdd").modal("hide");
+                getAll();
+            },
+            error: function () {
+                // Muestra el mensaje de error en caso de error en la petición
+                alert("Error al Eliminar");
+                $("#modalAdd").modal("hide");
+            }
+        })
+        $("#modalDelete").modal("hide");
+    }
+
+
+
+
+
+</script>
+</html>
