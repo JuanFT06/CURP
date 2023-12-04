@@ -63,6 +63,7 @@ public class PersonaRestController {
     public ResponseEntity<Persona> update(@PathVariable("id")int id,@RequestBody Persona persona){
         if (this.personaDAOImplementation.exist(id)) {
             persona.setId(id);
+            Direccion newDireccion=this.direccionDAOImplementation.save(persona.getDireccion());
             Persona newPersona=this.personaDAOImplementation.save(persona);
             return ResponseEntity.status(201).body(newPersona);
         }
